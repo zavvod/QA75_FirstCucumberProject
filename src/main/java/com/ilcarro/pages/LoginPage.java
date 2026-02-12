@@ -1,8 +1,12 @@
 package com.ilcarro.pages;
 
+import io.cucumber.datatable.DataTable;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import java.util.List;
+import java.util.Map;
 
 public class LoginPage extends BasePage{
 
@@ -34,6 +38,16 @@ public class LoginPage extends BasePage{
 
     public LoginPage verifyMessage(String message) {
         assert shouldHaveText(messageText,message,5);
+        return this;
+    }
+
+    public LoginPage enterWrongData(DataTable table) {
+        List<Map<String,String>> dataTable = table.asMaps();
+
+        String email = dataTable.get(0).get("email");
+        String password = dataTable.get(0).get("password");
+
+        enterData(email,password);
         return this;
     }
 }
